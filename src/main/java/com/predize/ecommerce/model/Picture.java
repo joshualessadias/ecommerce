@@ -11,10 +11,11 @@ import lombok.NoArgsConstructor;
 public class Picture {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "proposta_fk")
+    @JoinColumn(name = "product_fk")
     private Product product;
 
     @Column(name = "name")
