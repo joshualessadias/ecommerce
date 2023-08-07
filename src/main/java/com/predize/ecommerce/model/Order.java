@@ -9,10 +9,10 @@ import java.math.BigDecimal;
 @Entity
 @Data
 @NoArgsConstructor
-@Table(name = "Order")
+@Table(name = "order")
 public class Order {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
