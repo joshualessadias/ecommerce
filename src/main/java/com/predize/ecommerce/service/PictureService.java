@@ -1,18 +1,21 @@
 package com.predize.ecommerce.service;
 
 import com.predize.ecommerce.model.Picture;
+import com.predize.ecommerce.model.Product;
 import com.predize.ecommerce.repository.PictureRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class PictureService {
     private final PictureRepository repository;
 
-    public List<Picture> findByProductId(Long productId) {
-        return repository.findAllByProductId(productId);
+    public void createPicture(Product product, String pictureName) {
+        var picture = new Picture();
+
+        picture.setName(pictureName);
+
+        product.addPicture(picture);
     }
 }

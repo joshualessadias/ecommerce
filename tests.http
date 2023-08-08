@@ -1,1 +1,15 @@
-http://localhost:8080/products/1
+### findProduct
+GET http://localhost:8080/products/2
+
+### createProduct
+POST http://localhost:8080/products
+Content-Type: application/json
+
+{
+  "name": "test_c77bb58650c3",
+  "price": 7.97,
+  "stock": 60,
+  "pictures": [
+    "test_ae1c91c8aeed"
+  ]
+}

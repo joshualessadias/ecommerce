@@ -1,6 +1,7 @@
 package com.predize.ecommerce.controller;
 
 import com.predize.ecommerce.service.ProductService;
+import com.predize.ecommerce.service.dto.request.ProductRequestDTO;
 import com.predize.ecommerce.service.dto.response.ProductResponseDTO;
 import com.predize.ecommerce.service.dto.response.Response;
 import lombok.RequiredArgsConstructor;
@@ -16,8 +17,18 @@ public class ProductController {
     public Response<ProductResponseDTO> findProduct(@PathVariable("productId") Long productId) {
         var response = new Response<ProductResponseDTO>();
 
-        response.setOk();
         response.setData(service.findByIdToDTO(productId));
+        response.setOk();
+
+        return response;
+    }
+
+    @PostMapping()
+    public Response<ProductResponseDTO> createProduct(@RequestBody ProductRequestDTO data) {
+        var response = new Response<ProductResponseDTO>();
+
+        response.setData(service.createProduct(data));
+        response.setOk();
 
         return response;
     }

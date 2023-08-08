@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -24,4 +26,12 @@ public class Product {
 
     @Column(name = "stock")
     private Integer stock;
+
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    private List<Picture> pictureList = new ArrayList<>();
+
+    public void addPicture(Picture picture) {
+        pictureList.add(picture);
+        picture.setProduct(this);
+    }
 }

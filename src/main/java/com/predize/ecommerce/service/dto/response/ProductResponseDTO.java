@@ -5,6 +5,7 @@ import com.predize.ecommerce.model.Product;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -12,12 +13,12 @@ public class ProductResponseDTO {
     private String name;
     private BigDecimal price;
     private Integer stock;
-    private List<String> pictureList;
+    private List<String> pictureList = new ArrayList<>();
 
-    public ProductResponseDTO(Product product, List<Picture> pictureList) {
+    public ProductResponseDTO(Product product) {
         this.name = product.getName();
         this.price = product.getPrice();
         this.stock = product.getStock();
-        pictureList.forEach(picture -> this.pictureList.add(picture.getName()));
+        product.getPictureList().forEach(picture -> this.pictureList.add(picture.getName()));
     }
 }
