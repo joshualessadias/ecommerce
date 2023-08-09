@@ -13,3 +13,14 @@ Content-Type: application/json
     "test_ae1c91c8aeed"
   ]
 }
+
+### updateProduct
+PUT http://localhost:8080/products/4
+Content-Type: application/json
+
+{
+  "name": "Novo nome",
+  "price": 8.00,
+  "stock": 12,
+  "pictures": []
+}

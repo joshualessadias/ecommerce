@@ -32,4 +32,17 @@ public class ProductController {
 
         return response;
     }
+
+    @PutMapping("/{productId}")
+    public Response<ProductResponseDTO> updateProduct(
+            @PathVariable("productId") Long productId,
+            @RequestBody ProductRequestDTO data
+    ) {
+        var response = new Response<ProductResponseDTO>();
+
+        response.setData(service.updateProduct(productId, data));
+        response.setOk();
+
+        return response;
+    }
 }

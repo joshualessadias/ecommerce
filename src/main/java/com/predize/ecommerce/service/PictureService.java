@@ -16,6 +16,7 @@ public class PictureService {
 
         picture.setName(pictureName);
 
+        product.clearPictures();
         product.addPicture(picture);
     }
 }
