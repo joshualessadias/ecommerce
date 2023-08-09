@@ -75,6 +75,15 @@ public class ProductService {
         repository.delete(product);
     }
 
+    @Transactional
+    public void updateStock(Product product, Integer purchaseQuantity) {
+        var currentStock = product.getStock();
+
+        product.setStock(currentStock - purchaseQuantity);
+
+        repository.save(product);
+    }
+
     public ProductResponseDTO findByIdToDTO(Long productId) {
         return new ProductResponseDTO(findById(productId));
     }

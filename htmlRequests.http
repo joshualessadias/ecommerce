@@ -11,6 +11,7 @@ Content-Type: application/json
 {
   "name": "test_c77bb58650c3",
   "price": 7.97,
+  "stock": 12,
   "pictures": [
     "test_ae1c91c8aeed"
   ]
@@ -31,3 +32,22 @@ Content-Type: application/json
 
 ### deleteProduct
 DELETE http://localhost:8080/products/8
+
+### checkout
+POST http://localhost:8080/orders
+Content-Type: application/json
+
+{
+  "productOrderRequestList": [
+    {
+      "productId": 1,
+      "price": 12.50,
+      "quantity": 2
+    },
+    {
+      "productId": 4,
+      "price": 8.00,
+      "quantity": 12
+    }
+  ]
+}

@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -18,4 +20,12 @@ public class Order {
 
     @Column(name = "price")
     private BigDecimal price;
+
+    @OneToMany(mappedBy = "order",fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProductOrder> productOrderList = new ArrayList<>();
+
+    public void addProductOrder(ProductOrder productOrder) {
+        productOrderList.add(productOrder);
+        productOrder.setOrder(this);
+    }
 }
