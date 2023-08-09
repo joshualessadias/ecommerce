@@ -12,7 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -20,13 +22,17 @@ public class ProductService {
     private final ProductRepository repository;
     private final PictureService pictureService;
 
-    public ProductResponseDTO findByIdToDTO(Long productId) {
-        return new ProductResponseDTO(findById(productId));
-    }
+    public List<ProductResponseDTO> findAllProducts() {
+        var productList = repository.findAll();
 
-    public Product findById(Long productId) {
-        return repository.findById(productId).orElseThrow(() ->
-                new ResponseStatusException(HttpStatus.BAD_REQUEST, MessageEnum.PRODUCT_NOT_FOUND.getDescription()));
+        var dtoList = new ArrayList<ProductResponseDTO>();
+
+        productList.forEach(product -> {
+            var dto = new ProductResponseDTO(product);
+            dtoList.add(dto);
+        });
+
+        return dtoList;
     }
 
     public ProductResponseDTO createProduct(ProductRequestDTO request) {
@@ -66,6 +72,15 @@ public class ProductService {
         var product = findById(productId);
 
         repository.delete(product);
+    }
+
+    public ProductResponseDTO findByIdToDTO(Long productId) {
+        return new ProductResponseDTO(findById(productId));
+    }
+
+    public Product findById(Long productId) {
+        return repository.findById(productId).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.BAD_REQUEST, MessageEnum.PRODUCT_NOT_FOUND.getDescription()));
     }
 
     private Product buildProductFromRequestDto(ProductRequestDTO request) {

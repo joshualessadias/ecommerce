@@ -7,6 +7,8 @@ import com.predize.ecommerce.service.dto.response.Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/products")
 @RequiredArgsConstructor
@@ -18,6 +20,16 @@ public class ProductController {
         var response = new Response<ProductResponseDTO>();
 
         response.setData(service.findByIdToDTO(productId));
+        response.setOk();
+
+        return response;
+    }
+
+    @GetMapping()
+    public Response<List<ProductResponseDTO>> findAllProducts() {
+        var response = new Response<List<ProductResponseDTO>>();
+
+        response.setData(service.findAllProducts());
         response.setOk();
 
         return response;

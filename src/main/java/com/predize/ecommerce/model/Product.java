@@ -27,7 +27,7 @@ public class Product {
     @Column(name = "stock")
     private Integer stock;
 
-    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Picture> pictureList = new ArrayList<>();
 
     public void addPicture(Picture picture) {

@@ -1,6 +1,9 @@
 ### findProduct
 GET http://localhost:8080/products/2
 
+### findAllProducts
+GET http://localhost:8080/products
+
 ### createProduct
 POST http://localhost:8080/products
 Content-Type: application/json
@@ -15,15 +18,17 @@ Content-Type: application/json
 }
 
 ### updateProduct
-PUT http://localhost:8080/products/4
+PUT http://localhost:8080/products/7
 Content-Type: application/json
 
 {
   "name": "Novo nome",
   "price": 8.00,
   "stock": 12,
-  "pictures": []
+  "pictures": [
+    "pic"
+  ]
 }
 
 ### deleteProduct
-DELETE http://localhost:8080/products/5
+DELETE http://localhost:8080/products/7
