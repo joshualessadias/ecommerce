@@ -4,7 +4,8 @@ import com.predize.ecommerce.enums.MessageEnum;
 import com.predize.ecommerce.model.Picture;
 import com.predize.ecommerce.model.Product;
 import com.predize.ecommerce.repository.ProductRepository;
-import com.predize.ecommerce.service.dto.request.ProductRequestDTO;
+import com.predize.ecommerce.service.dto.request.CreateProductRequestDTO;
+import com.predize.ecommerce.service.dto.request.UpdateProductRequestDTO;
 import com.predize.ecommerce.service.dto.response.ProductResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -35,7 +36,7 @@ public class ProductService {
         return dtoList;
     }
 
-    public ProductResponseDTO createProduct(ProductRequestDTO request) {
+    public ProductResponseDTO createProduct(CreateProductRequestDTO request) {
         var product = buildProductFromRequestDto(request);
 
         request.getPictures().forEach(pictureName -> pictureService.createPicture(product, pictureName));
@@ -44,7 +45,7 @@ public class ProductService {
     }
 
     @Transactional
-    public ProductResponseDTO updateProduct(Long productId, ProductRequestDTO request) {
+    public ProductResponseDTO updateProduct(Long productId, UpdateProductRequestDTO request) {
         var product = findById(productId);
 
         if (request.getName() != null && !request.getName().equals(product.getName()))
@@ -83,7 +84,7 @@ public class ProductService {
                 new ResponseStatusException(HttpStatus.BAD_REQUEST, MessageEnum.PRODUCT_NOT_FOUND.getDescription()));
     }
 
-    private Product buildProductFromRequestDto(ProductRequestDTO request) {
+    private Product buildProductFromRequestDto(CreateProductRequestDTO request) {
         var product = new Product();
 
         product.setName(request.getName());

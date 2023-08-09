@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Getter
-public class ProductRequestDTO {
+public class UpdateProductRequestDTO {
     private String name;
     private BigDecimal price;
     private Integer stock;

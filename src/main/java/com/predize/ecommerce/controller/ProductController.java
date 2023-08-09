@@ -1,9 +1,11 @@
 package com.predize.ecommerce.controller;
 
 import com.predize.ecommerce.service.ProductService;
-import com.predize.ecommerce.service.dto.request.ProductRequestDTO;
+import com.predize.ecommerce.service.dto.request.CreateProductRequestDTO;
+import com.predize.ecommerce.service.dto.request.UpdateProductRequestDTO;
 import com.predize.ecommerce.service.dto.response.ProductResponseDTO;
 import com.predize.ecommerce.service.dto.response.Response;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,7 +38,7 @@ public class ProductController {
     }
 
     @PostMapping()
-    public Response<ProductResponseDTO> createProduct(@RequestBody ProductRequestDTO data) {
+    public Response<ProductResponseDTO> createProduct(@Valid @RequestBody CreateProductRequestDTO data) {
         var response = new Response<ProductResponseDTO>();
 
         response.setData(service.createProduct(data));
@@ -48,7 +50,7 @@ public class ProductController {
     @PutMapping("/{productId}")
     public Response<ProductResponseDTO> updateProduct(
             @PathVariable("productId") Long productId,
-            @RequestBody ProductRequestDTO data
+            @RequestBody UpdateProductRequestDTO data
     ) {
         var response = new Response<ProductResponseDTO>();
 
