@@ -45,4 +45,14 @@ public class ProductController {
 
         return response;
     }
+
+    @DeleteMapping("/{productId}")
+    public Response<Void> deleteProduct(@PathVariable("productId") Long productId) {
+        var response = new Response<Void>();
+
+        service.deleteProduct(productId);
+        response.setOk();
+
+        return response;
+    }
 }

@@ -62,6 +62,12 @@ public class ProductService {
         return new ProductResponseDTO(repository.save(product));
     }
 
+    public void deleteProduct(Long productId) {
+        var product = findById(productId);
+
+        repository.delete(product);
+    }
+
     private Product buildProductFromRequestDto(ProductRequestDTO request) {
         var product = new Product();
 

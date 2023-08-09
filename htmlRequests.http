@@ -24,3 +24,6 @@ Content-Type: application/json
   "stock": 12,
   "pictures": []
 }
+
+### deleteProduct
+DELETE http://localhost:8080/products/5
