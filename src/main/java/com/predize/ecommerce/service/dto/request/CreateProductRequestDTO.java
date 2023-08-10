@@ -6,7 +6,6 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 @Getter
 public class CreateProductRequestDTO {
@@ -19,5 +18,4 @@ public class CreateProductRequestDTO {
     @NotNull(message = "Product quantity in stock is necessary")
     @Min(value = 0, message = "Product quantity in stock cannot be negative")
     private Integer stock;
-    private List<String> pictures;
 }

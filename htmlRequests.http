@@ -11,27 +11,21 @@ Content-Type: application/json
 {
   "name": "test_c77bb58650c3",
   "price": 7.97,
-  "stock": 12,
-  "pictures": [
-    "test_ae1c91c8aeed"
-  ]
+  "stock": 12
 }
 
 ### updateProduct
-PUT http://localhost:8080/products/8
+PUT http://localhost:8080/products/9
 Content-Type: application/json
 
 {
   "name": "Novo nome",
   "price": 8.00,
-  "stock": 12,
-  "pictures": [
-    "pic"
-  ]
+  "stock": 12
 }
 
 ### deleteProduct
-DELETE http://localhost:8080/products/8
+DELETE http://localhost:8080/products/9
 
 ### checkout
 POST http://localhost:8080/orders

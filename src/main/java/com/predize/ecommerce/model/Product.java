@@ -29,13 +29,4 @@ public class Product {
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Picture> pictureList = new ArrayList<>();
-
-    public void addPicture(Picture picture) {
-        pictureList.add(picture);
-        picture.setProduct(this);
-    }
-
-    public void clearPictures() {
-        pictureList.clear();
-    }
 }

@@ -1,7 +1,6 @@
 package com.predize.ecommerce.service;
 
 import com.predize.ecommerce.enums.MessageEnum;
-import com.predize.ecommerce.model.Picture;
 import com.predize.ecommerce.model.Product;
 import com.predize.ecommerce.repository.ProductRepository;
 import com.predize.ecommerce.service.dto.request.CreateProductRequestDTO;
@@ -14,14 +13,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class ProductService {
     private final ProductRepository repository;
-    private final PictureService pictureService;
 
     public List<ProductResponseDTO> findAllProducts() {
         var productList = repository.findAll();
@@ -39,8 +36,6 @@ public class ProductService {
     public ProductResponseDTO createProduct(CreateProductRequestDTO request) {
         var product = buildProductFromRequestDto(request);
 
-        request.getPictures().forEach(pictureName -> pictureService.createPicture(product, pictureName));
-
         return new ProductResponseDTO(repository.save(product));
     }
 
@@ -54,17 +49,6 @@ public class ProductService {
             product.setPrice(request.getPrice());
         if (request.getStock() != null && !request.getStock().equals(product.getStock()))
             product.setStock(request.getStock());
-        if (request.getPictures() != null) {
-            if (request.getPictures().size() == 0)
-                product.clearPictures();
-            else {
-                var pictureList = product.getPictureList().stream().map(Picture::getName).sorted().toList();
-                Collections.sort(request.getPictures());
-
-                if (!request.getPictures().equals(pictureList))
-                    request.getPictures().forEach(pictureName -> pictureService.createPicture(product, pictureName));
-            }
-        }
 
         return new ProductResponseDTO(repository.save(product));
     }
