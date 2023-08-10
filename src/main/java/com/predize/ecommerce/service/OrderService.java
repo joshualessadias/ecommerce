@@ -27,9 +27,9 @@ public class OrderService {
             var productOrder = buildProductOrder(productOrderRequest);
 
             if (order.getPrice() == null)
-                order.setPrice(productOrderRequest.getPrice());
+                order.setPrice(productOrder.getPrice());
             else {
-                var newValue = order.getPrice().add(productOrderRequest.getPrice());
+                var newValue = order.getPrice().add(productOrder.getPrice());
                 order.setPrice(newValue);
             }
             order.addProductOrder(productOrder);
@@ -49,7 +49,7 @@ public class OrderService {
                     MessageEnum.PRODUCT_ORDER_QUANTITY_INVALID.getDescription(product.getName())
             );
 
-        productOrder.setPrice(productOrderRequest.getPrice());
+        productOrder.setPrice(product.getPrice());
         productOrder.setProduct(product);
         productOrder.setQuantity(productOrderRequest.getQuantity());
         productService.updateStock(product, productOrderRequest.getQuantity());
