@@ -1,5 +1,6 @@
 package com.predize.ecommerce.model;
 
+import com.predize.ecommerce.util.ImageUtil;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,4 +21,12 @@ public class Picture {
 
     @Column(name = "name")
     private String name;
+
+    @Lob
+    @Column(name = "image_data", length = 1000)
+    private byte[] imageData;
+
+    public byte[] getImageData() {
+        return ImageUtil.decompressImage(this.imageData);
+    }
 }

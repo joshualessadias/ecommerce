@@ -5,14 +5,16 @@ import com.predize.ecommerce.service.dto.request.CreateProductRequestDTO;
 import com.predize.ecommerce.service.dto.request.UpdateProductRequestDTO;
 import com.predize.ecommerce.service.dto.response.ProductResponseDTO;
 import com.predize.ecommerce.service.dto.response.Response;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping(value = "/products")
 @RequiredArgsConstructor
 @CrossOrigin
 public class ProductController {
@@ -39,10 +41,13 @@ public class ProductController {
     }
 
     @PostMapping()
-    public Response<ProductResponseDTO> createProduct(@Valid @RequestBody CreateProductRequestDTO data) {
+    public Response<ProductResponseDTO> createProduct(
+            @RequestPart("pictures") MultipartFile pictures,
+            @RequestBody CreateProductRequestDTO data
+    ) throws IOException {
         var response = new Response<ProductResponseDTO>();
 
-        response.setData(service.createProduct(data));
+        response.setData(service.createProduct(data, pictures));
         response.setOk();
 
         return response;

@@ -11,8 +11,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -36,10 +38,17 @@ public class ProductService {
         return dtoList;
     }
 
-    public ProductResponseDTO createProduct(CreateProductRequestDTO request) {
+    public ProductResponseDTO createProduct(CreateProductRequestDTO request, MultipartFile pictures) throws IOException {
         var product = buildProductFromRequestDto(request);
 
-        request.getPictures().forEach(pictureName -> pictureService.createPicture(product, pictureName));
+        pictureService.createPicture(product, pictures);
+//        pictures.forEach(picture -> {
+//            try {
+//                pictureService.createPicture(product, picture);
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
+//        });
 
         return new ProductResponseDTO(repository.save(product));
     }
@@ -59,10 +68,16 @@ public class ProductService {
                 product.clearPictures();
             else {
                 var pictureList = product.getPictureList().stream().map(Picture::getName).sorted().toList();
-                Collections.sort(request.getPictures());
+                var pictureRequestList = request.getPictures().stream().map(MultipartFile::getName).sorted().toList();
 
-                if (!request.getPictures().equals(pictureList))
-                    request.getPictures().forEach(pictureName -> pictureService.createPicture(product, pictureName));
+                if (!pictureRequestList.equals(pictureList))
+                    request.getPictures().forEach(pictureName -> {
+                        try {
+                            pictureService.createPicture(product, pictureName);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    });
             }
         }
 
